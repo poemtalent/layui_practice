@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <style>
+        .layui-logo {
+            color: #fff !important;
+        }
+        
+        .layui-container {
+            padding: 5px;
+            margin: 0;
+            width: 100%;
+        }
+
+        .card-box {
+           padding: 5px;
+        }
+
+        .layui-layout-body ,.layui-body{
+            background-color: #eeeeee;
+        }
+
+        .layui-card {
+            position: relative;
+        }
+
+        .ball-box {
+            box-sizing: border-box;
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            height: 20px;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding-right: 20px;
+        }
+
+        .ball {
+            height: 10px;
+            width: 10px;
+            border-radius: 5px;
+            background-color:rgb(210, 210, 210);
+            margin-right: 5px;
+        }
+
+        .ball-active {
+            background-color:rgb(153, 153, 153);
+        }
+
+        .layui-card-body {
+            padding: 10px 15px;
+        }
+
+        .little-card {
+            padding: 5px;
+        }
+
+        .little-card i {
+            background-color: rgb(248, 248, 248);
+            font-size: 30px;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            display: block;
+            text-align: center;
+        }
+
+        .little-card p {
+            text-align: center;
+            
+        }
+
+        .to-do-list {
+            background-color: rgb(248, 248, 248);
+        }
+
+        .to-do-list-title {
+            padding-top: 11px;
+            padding-left: 15px;
+            margin-bottom: 5px;
+            color: rgba(150, 150, 150, 1);
+            font-size: 12px;
+            font-weight: 400;
+            text-align: left !important;
+        }
+
+        .to-do-list-num {
+            color: rgb(0, 150, 136);
+            font-size: 30px;
+            font-weight: 300;
+            line-height: 24px;
+            text-align: left !important;
+            padding: 5px 15px 15px;
+        }
+
+        .flex-it {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        button {
+            margin: 5px;
+        }
+
+        .layui-progress {
+            position: relative;
+            clear: both;
+            margin-bottom: 15px;
+        }
+
+        .progress-title {
+            color: rgb(153, 153, 153);
+            float: right;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .layui-progress-text {
+            color: rgb(102, 102, 102);
+            font-size: 26px;
+            position: absolute;
+            left: 0px;
+            top: -35px;
+        }
+
+        .layuiAdmin {
+            width: 100%;
+            text-align: center;
+            height: 60px;
+            line-height: 60px;
+        }
+     </style>
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header layui-bg-green">
+            <div class="layui-logo layui-bg-green">layuiAdmin Pro</div>
+            <ul class="layui-nav layui-layout-left top-list">
+                <li class="layui-nav-item layadmin-flexible"><a layadmin-event="flexible" href="">
+                    <i class="layui-icon layui-icon-slider"></i>  
+                </a></li>
+                <li class="layui-nav-item"><a href="">
+                    <i class="layui-icon layui-icon-website"></i> 
+                </a></li>
+                <li class="layui-nav-item"><a href="">
+                    <i class="layui-icon layui-icon-refresh"></i>
+                </a></li>
+                <li class="layui-nav-item">
+                    <a href="#">
+                        <input type="text" class="layui-input layui-input-inline" placeholder="搜索...">
+                    </a>
+                  
+                </li>
+            </ul>
+
+            <ul class="layui-nav layui-layout-right top-list">
+                <li class="layui-nav-item">
+                    <a href="">
+                        <span class="layui-badge-dot"></span>
+                        <i class="layui-icon layui-icon-notice"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">
+                        <i class="layui-icon layui-icon-theme"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">
+                        <i class="layui-icon layui-icon-note"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">
+                        <i class="layui-icon layui-icon-screen-full"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item ">
+                  <a href="javascript:;">
+                    贤心
+                  </a>
+                  <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                    <hr/>
+                    <dd><a href="" style="text-align: center;">退出</a></dd>
+                  </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">
+                        <i class="layui-icon layui-icon-more-vertical"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-side-menu layui-bg-black">
+            <div class="layui-side-scroll">
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item">
+                        <a href="#">主页</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="#">控制台</a></dd>
+                            <dd><a href="#">页面一</a></dd>
+                            <dd><a href="#">页面二</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">功能一</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="#">子功能一</a></dd>
+                            <dd><a href="#">子功能二</a></dd>
+                            <dd><a href="#">子功能三</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">新功能</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">新功能</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">新功能</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">新功能</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">新功能</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">新功能</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="#">新功能</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="layui-body">
+            <div class="layui-container">
+                <div class="layui-row">
+                    <div class="layui-col-md8">
+                        <div class="layui-row">
+                            <div class="layui-col-md6 card-box">
+                                <div class="layui-card">
+                                    <div class="ball-box">
+                                        <div class="ball ball-active"></div>
+                                        <div class="ball"></div>
+                                    </div>
+                                    <div class="layui-card-header">快捷方式</div>
+                                    <div class="layui-card-body ">
+                                        <div class="layui-row">
+                                            <div class="layui-col-md3 little-card">
+                                                <i class="layui-icon layui-icon-console"></i>
+                                                <p>页面一</p>
+                                            </div>
+                                            <div class="layui-col-md3 little-card">
+                                                <i class="layui-icon layui-icon-chart"></i>
+                                                <p>页面一</p>
+                                            </div>
+                                            <div class="layui-col-md3 little-card">
+                                                <i class="layui-icon layui-icon-template-1"></i>
+                                                <p>弹层</p>
+                                            </div>
+                                            <div class="layui-col-md3 little-card">
+                                                <i class="layui-icon layui-icon-chat"></i>
+                                                <p>聊天</p>
+                                            </div>
+                                        </div>
+                                        <div class="layui-row">
+                                            <div class="layui-col-md3 little-card">
+                                                <i class="layui-icon layui-icon-find-fill"></i>
+                                                <p>进度条</p>
+                                            </div>
+                                            <div class="layui-col-md3 little-card">
+                                                <i class="layui-icon layui-icon-survey"></i>
+                                                <p>工单</p>
+                                            </div>
+                                            <div class="layui-col-md3 little-card">
+                                                <i class="layui-icon layui-icon-user" ></i>
+                                                <p>用户</p>
+                                            </div>
+                                            <div class="layui-col-md3 little-card">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <p>设置</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md6 card-box">
+                                <div class="layui-card">
+                                    <div class="ball-box">
+                                        <div class="ball ball-active"></div>
+                                        <div class="ball"></div>
+                                    </div>
+                                    <div class="layui-card-header ">待办事项</div>
+                                    <div class="layui-card-body ">
+                                        <div class="layui-row">
+                                            <div class="layui-col-md6 little-card layui-card-body ">
+                                                <div class="to-do-list">
+                                                    <p class="to-do-list-title">待审评论</p>
+                                                    <p class="to-do-list-num">66</p>
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-md6 little-card layui-card-body">
+                                                <div class="to-do-list">
+                                                    <p class="to-do-list-title">待审帖子</p>
+                                                    <p class="to-do-list-num">12</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-row">
+                                            <div class="layui-col-md6 little-card layui-card-body">
+                                                <div class="to-do-list">
+                                                    <p class="to-do-list-title">待审商品</p>
+                                                    <p class="to-do-list-num">99</p>
+                                                </div>
+                                            </div>
+                                            <div class="layui-col-md6 little-card layui-card-body">
+                                                <div class="to-do-list">
+                                                    <p class="to-do-list-title">待发货</p>
+                                                    <p class="to-do-list-num">20</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-card" style="margin: 10px 5px;">
+                            <div class="layui-card-header">
+                                <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                                    <ul class="layui-tab-title">
+                                      <li class="layui-this">今日热搜</li>
+                                      <li>今日热帖</li>
+                                    </ul>
+                                    <div class="layui-tab-content"></div>
+                                  </div>  
+                            </div>
+                            <div class="layui-card-body">
+                                <table class="layui-table">
+                                    <colgroup>
+                                        <col width="10">
+                                        <col width="200">
+                                        <col width="200">
+                                        <col width="200">
+                                      </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td>关键字</td>
+                                            <td>搜索次数</td>
+                                            <td>用户数</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>贤心是男是女</td>
+                                            <td>8520</td>
+                                            <td>2216</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Java程序员能找到女朋友吗</td>
+                                            <td>666</td>
+                                            <td>333</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>此表格是静态模拟数据</td>
+                                            <td>666</td>
+                                            <td>333</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>layui官方教程</td>
+                                            <td>666</td>
+                                            <td>333</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>layui官方教程</td>
+                                            <td>666</td>
+                                            <td>333</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>layui官方教程</td>
+                                            <td>666</td>
+                                            <td>333</td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>layui官方教程</td>
+                                            <td>666</td>
+                                            <td>333</td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>layui官方教程</td>
+                                            <td>666</td>
+                                            <td>333</td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>layui官方教程</td>
+                                            <td>666</td>
+                                            <td>333</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>layui官方教程</td>
+                                            <td>666</td>
+                                            <td>333</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md4 card-box">
+                        <div class="layui-card">
+                            <div class="layui-card-header ">版本信息</div>
+                            <div class="layui-card-body ">
+                                <table class="layui-table">
+                                    <tbody>
+                                        <tr>
+                                            <td>当前版本</td>
+                                            <td>
+                                                v1.4.0 pro
+                                                &nbsp;
+                                                <a href="" style="color: rgb(1, 170, 237);">日志</a>
+                                                &nbsp;
+                                                <a href="" style="color: rgb(1, 170, 237);">检查更新</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>基于框架</td>
+                                            <td>layui-v2.5.6 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>主要特色</td>
+                                            <td>单页面 / 响应式 / 清爽 / 极简</td>
+                                        </tr>
+                                        <tr>
+                                            <td>获得渠道</td>
+                                            <td>
+                                                <button type="button" class="layui-btn layui-btn-danger">获取授权</button>
+                                                <button type="button" class="layui-btn">立即下载</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">效果报告</div>
+                            <div class="layui-card-body ">
+                                <h3 class="progress-title">
+                                    转化率（日同比 28%
+                                    <span class="layui-edge layui-edge-top" lay-tips="增长" lay-offset="-15"></span>
+                                    )
+                                </h3>
+                                <div class="layui-progress">
+                                    
+                                    <div class="layui-progress-bar" lay-percent="65%">
+                                        <span class="layui-progress-text">65%</span>
+                                    </div>
+                                </div>
+                                <h3 class="progress-title">
+                                    签到率（日同比 11%
+                                    <span class="layui-edge layui-edge-bottom" lay-tips="下降" lay-offset="-15"></span>
+                                    )
+                                </h3>
+                                <div class="layui-progress">
+                                    <div class="layui-progress-bar" lay-percent="35%">
+                                        <span class="layui-progress-text">35%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">实时监控</div>
+                            <div class="layui-card-body ">
+                                <h3 class="progress-title">
+                                    CPU使用率
+                                </h3>
+                                <div class="layui-progress">
+                                    
+                                    <div class="layui-progress-bar" lay-percent="58%">
+                                        <span class="layui-progress-text">58%</span>
+                                    </div>
+                                </div>
+                                <h3 class="progress-title">
+                                    内存占用率
+                                </h3>
+                                <div class="layui-progress">
+                                    <div class="layui-progress-bar layui-bg-red" lay-percent="90%">
+                                        <span class="layui-progress-text">90%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-card">
+                            <div class="ball-box">
+                                <div class="ball ball-active"></div>
+                                <div class="ball"></div>
+                                <div class="ball"></div>
+                            </div>
+                            <div class="layui-card-header">产品动态</div>
+                            <div class="layui-card-body">
+                                <button type="button" class="layui-btn layuiAdmin">layuiAdmin 快速上手攻略</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-footer"></div>
+    </div>
+       
+    <script src="./layui/layui.all.js"></script>
+</body>
+</html>
